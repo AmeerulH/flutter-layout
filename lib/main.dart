@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   var _scrollController = ScrollController();
-  var _list = 20;
+  var _listCount = 20;
 
   void initState() {
     super.initState();
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         if (_scrollController.position.pixels == 0) {
         } else {
           setState(() {
-            _list += 10;
+            _listCount += 10;
           });
           // print("reach end " + _listCap.toString());
         }
@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              itemCount: _list,
+              itemCount: _listCount,
             );
           },
           future: DefaultAssetBundle.of(context).loadString('data.json'),
