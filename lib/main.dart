@@ -116,8 +116,22 @@ class _MyHomePageState extends State<MyHomePage> {
             var items = json.decode(snapshot.data.toString());
             return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: Colors.amberAccent,
+                return Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      left: BorderSide(
+                        //
+                        color: Colors.black,
+                        width: 3.0,
+                      ),
+                      top: BorderSide(
+                        //
+                        color: Colors.black,
+                        width: 3.0,
+                      ),
+                    ),
+                    color: Colors.amberAccent,
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
