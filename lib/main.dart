@@ -133,14 +133,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: Container(
-                                    child: CircleAvatar(
-                                      backgroundImage: items[index]
-                                              .containsKey('avatar')
-                                          ? NetworkImage(items[index]['avatar'])
-                                          : const NetworkImage(
-                                              'https://static.thenounproject.com/png/3134331-200.png'),
-                                    ),
+                                  child: CircleAvatar(
+                                    backgroundImage: items[index]
+                                            .containsKey('avatar')
+                                        ? NetworkImage(items[index]['avatar'])
+                                        : const NetworkImage(
+                                            'https://static.thenounproject.com/png/3134331-200.png'),
                                   ),
                                 ),
                                 Container(
