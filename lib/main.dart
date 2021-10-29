@@ -133,34 +133,39 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: CircleAvatar(
+                                    child: Row(children: <Widget>[
+                                  CircleAvatar(
                                     backgroundImage: items[index]
                                             .containsKey('avatar')
                                         ? NetworkImage(items[index]['avatar'])
                                         : const NetworkImage(
                                             'https://static.thenounproject.com/png/3134331-200.png'),
                                   ),
-                                ),
-                                Container(
-                                    child: Column(
-                                  children: [
-                                    Text(
-                                      '${items[index]['first_name']} ${items[index]['last_name']}',
-                                    ),
-                                    Text(
-                                      items[index]['username'],
-                                    ),
-                                    Text(
-                                        items[index].containsKey('status')
-                                            ? items[index]['status']
-                                            : "N/A",
-                                        style: const TextStyle(
-                                            color: Colors.grey, fontSize: 10)),
-                                  ],
-                                )),
+                                  Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '${items[index]['first_name']} ${items[index]['last_name']}',
+                                          ),
+                                          Text(
+                                            items[index]['username'],
+                                          ),
+                                          Text(
+                                              items[index].containsKey('status')
+                                                  ? items[index]['status']
+                                                  : "N/A",
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 10)),
+                                        ],
+                                      )),
+                                ])),
                                 Container(
                                     child: Column(children: [
-                                  Text(items[index]['last_seen_time']),
+                                  Text(items[index]['last_seen_time'],
+                                      style:
+                                          const TextStyle(color: Colors.grey)),
                                   CircleAvatar(
                                     child: Text(items[index]
                                             .containsKey('messages')
