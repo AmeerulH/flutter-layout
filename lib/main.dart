@@ -144,20 +144,34 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Container(
                                       margin: const EdgeInsets.only(left: 10),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            '${items[index]['first_name']} ${items[index]['last_name']}',
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${items[index]['first_name']} ${items[index]['last_name']}',
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            items[index]['username'],
+                                          Row(
+                                            children: [
+                                              Text(
+                                                items[index]['username'],
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                              items[index].containsKey('status')
-                                                  ? items[index]['status']
-                                                  : "N/A",
-                                              style: const TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 10)),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  items[index]
+                                                          .containsKey('status')
+                                                      ? items[index]['status']
+                                                      : "N/A",
+                                                  style: const TextStyle(
+                                                      color: Colors.grey)),
+                                            ],
+                                          ),
                                         ],
                                       )),
                                 ])),
