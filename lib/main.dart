@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       items = data;
     });
     // ignore: avoid_print
-    items.forEach((value) => {print('$value \n')});
+    // items.forEach((value) => {print('$value \n')});
   }
 
   @override
@@ -133,26 +133,31 @@ class _MyHomePageState extends State<MyHomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: CircleAvatar(
-                                    backgroundImage: items[index]
-                                            .containsKey('avatar')
-                                        ? NetworkImage(items[index]['avatar'])
-                                        : const NetworkImage(
-                                            'https://static.thenounproject.com/png/3134331-200.png'),
+                                  child: Container(
+                                    child: CircleAvatar(
+                                      backgroundImage: items[index]
+                                              .containsKey('avatar')
+                                          ? NetworkImage(items[index]['avatar'])
+                                          : const NetworkImage(
+                                              'https://static.thenounproject.com/png/3134331-200.png'),
+                                    ),
                                   ),
                                 ),
                                 Container(
                                     child: Column(
                                   children: [
                                     Text(
-                                        '${items[index]['first_name']} ${items[index]['last_name']}'),
-                                    Text(items[index]['username']),
-                                    Text(
-                                      items[index].containsKey('status')
-                                          ? items[index]['status']
-                                          : "N/A",
-                                      style: TextStyle(),
+                                      '${items[index]['first_name']} ${items[index]['last_name']}',
                                     ),
+                                    Text(
+                                      items[index]['username'],
+                                    ),
+                                    Text(
+                                        items[index].containsKey('status')
+                                            ? items[index]['status']
+                                            : "N/A",
+                                        style: const TextStyle(
+                                            color: Colors.grey, fontSize: 10)),
                                   ],
                                 )),
                                 Container(
