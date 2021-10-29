@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart' show rootBundle;
 
 // Future<Data> fetchData() async {
 //   final response = await http.get(Uri.parse(
@@ -91,6 +88,32 @@ class _MyHomePageState extends State<MyHomePage> {
   //   // items.forEach((value) => {print('$value \n')});
   // }
 
+  var _scrollController = ScrollController();
+  var _list = 20;
+
+  void initState() {
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        if (_scrollController.position.pixels == 0) {
+        } else {
+          setState(() {
+            _list += 10;
+          });
+          // print("reach end " + _listCap.toString());
+        }
+      }
+    });
+  }
+
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (context, snapshot) {
             var items = json.decode(snapshot.data.toString());
             return ListView.builder(
+              controller: _scrollController,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: const BoxDecoration(
@@ -199,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
-              itemCount: items.length,
+              itemCount: _list,
             );
           },
           future: DefaultAssetBundle.of(context).loadString('data.json'),
