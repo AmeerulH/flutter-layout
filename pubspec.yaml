@@ -53,7 +53,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets: 
-    - MOCK_DATA for Flutter layouting.json
+    - data.json
     - profile.png
 
   # The following line ensures that the Material Icons font is

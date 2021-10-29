@@ -78,18 +78,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List items = [];
+  // List items = [];
 
-  Future<void> getJson() async {
-    final String response =
-        await rootBundle.loadString('MOCK_DATA for Flutter layouting.json');
-    final data = await json.decode(response);
-    setState(() {
-      items = data;
-    });
-    // ignore: avoid_print
-    // items.forEach((value) => {print('$value \n')});
-  }
+  // Future<void> getJson() async {
+  //   final String response =
+  //       await rootBundle.loadString('MOCK_DATA for Flutter layouting.json');
+  //   final data = await json.decode(response);
+  //   setState(() {
+  //     items = data;
+  //   });
+  //   // ignore: avoid_print
+  //   // items.forEach((value) => {print('$value \n')});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -110,92 +110,85 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            ElevatedButton(
-              child: const Text('Load Data'),
-              onPressed: getJson,
-            ),
-
-            // Display the data loaded from sample.json
-            items.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          margin: const EdgeInsets.all(10),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                    child: Row(children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundImage: items[index]
-                                            .containsKey('avatar')
-                                        ? NetworkImage(items[index]['avatar'])
-                                        : const NetworkImage(
-                                            'https://static.thenounproject.com/png/3134331-200.png'),
-                                  ),
-                                  Container(
-                                      margin: const EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '${items[index]['first_name']} ${items[index]['last_name']}',
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                items[index]['username'],
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  items[index]
-                                                          .containsKey('status')
-                                                      ? items[index]['status']
-                                                      : "N/A",
-                                                  style: const TextStyle(
-                                                      color: Colors.grey)),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                                ])),
-                                Container(
-                                    child: Column(children: [
-                                  Text(items[index]['last_seen_time'],
-                                      style:
-                                          const TextStyle(color: Colors.grey)),
-                                  CircleAvatar(
-                                    child: Text(items[index]
-                                            .containsKey('messages')
-                                        ? items[index]['messages'].toString()
-                                        : '0'),
-                                  )
-                                ]))
-                              ],
-                            ),
+      body: Center(
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            var items = json.decode(snapshot.data.toString());
+            return ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: Colors.amberAccent,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            child: Row(children: <Widget>[
+                          CircleAvatar(
+                            backgroundColor: Colors.white,
+                            backgroundImage: items[index].containsKey('avatar')
+                                ? NetworkImage(items[index]['avatar'])
+                                : const NetworkImage(
+                                    'https://static.thenounproject.com/png/3134331-200.png'),
                           ),
-                        );
-                      },
+                          Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${items[index]['first_name']} ${items[index]['last_name']}',
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        items[index]['username'],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                          items[index].containsKey('status')
+                                              ? items[index]['status']
+                                              : "N/A",
+                                          style: const TextStyle(
+                                              color: Colors.grey)),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                        ])),
+                        Container(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(items[index]['last_seen_time'],
+                                    style: const TextStyle(color: Colors.grey)),
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.black,
+                                child: Text(items[index].containsKey('messages')
+                                    ? items[index]['messages'].toString()
+                                    : '0'),
+                              )
+                            ]))
+                      ],
                     ),
-                  )
-                : Container()
-          ],
+                  ),
+                );
+              },
+              itemCount: items.length,
+            );
+          },
+          future: DefaultAssetBundle.of(context).loadString('data.json'),
         ),
       ),
     );
